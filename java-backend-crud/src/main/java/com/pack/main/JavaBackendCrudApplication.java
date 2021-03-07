@@ -5,17 +5,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.pack.main.domain.Appointment;
 import com.pack.main.domain.User;
 import com.pack.main.repository.AppointmentRepository;
 import com.pack.main.repository.UserRepository;
 
-
+@SpringBootApplication
 public class JavaBackendCrudApplication {
 
 	
 	private static final org.slf4j.Logger logger1 = LoggerFactory.getLogger(JavaBackendCrudApplication.class);
+
 		
 	@Autowired
 	private UserRepository  userrepository;
@@ -49,7 +53,26 @@ public class JavaBackendCrudApplication {
 	};
 	
 			
-	}	
+	}
+
+	@Bean 
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				
+				registry.addMapping("/*")
+				.allowedMethods("GET","POST","PUT","DELETE")
+				.allowedHeaders("*")
+				.allowedOrigins("http://localhost:3000");
+
+			}
+			
+		};
+	
+		
+	}
 	
 	
 }
