@@ -7,15 +7,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pack.main.domain.Appointment;
 import com.pack.main.repository.AppointmentRepository;
 
-@RestController   
+@RestController  
 public class AppointmentController {
 	
 	@Autowired
 	private AppointmentRepository repository; 
-	
 	@RequestMapping("/appointments")
+	
 	public Iterable <Appointment>  getAppointments(){
 		return repository.findAll();
 	}
 	
 }
+
+
